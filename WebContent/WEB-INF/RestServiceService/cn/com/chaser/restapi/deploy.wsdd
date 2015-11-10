@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from RestServiceService WSDL service -->
+
+  <service name="RestService" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://restapi.chaser.com.cn"/>
+      <parameter name="wsdlServiceElement" value="RestServiceService"/>
+      <parameter name="schemaQualified" value="http://restapi.chaser.com.cn"/>
+      <parameter name="wsdlServicePort" value="RestService"/>
+      <parameter name="className" value="cn.com.chaser.restapi.RestService"/>
+      <parameter name="wsdlPortType" value="RestService"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://restapi.chaser.com.cn" xmlns:retNS="http://restapi.chaser.com.cn" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="respondMessage" qname="operNS:respondMessage" returnQName="retNS:respondMessageReturn" returnType="rtns:anyType" soapAction="">
+        <parameter xmlns:pns="http://restapi.chaser.com.cn" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:parameter" type="tns:string"/>
+        <parameter xmlns:pns="http://restapi.chaser.com.cn" xmlns:tns="http://www.w3.org/2001/XMLSchema" qname="pns:value" type="tns:string"/>
+      </operation>
+      <operation xmlns:operNS="http://restapi.chaser.com.cn" xmlns:retNS="http://restapi.chaser.com.cn" xmlns:rtns="http://www.w3.org/2001/XMLSchema" name="getWebServiceInfo" qname="operNS:getWebServiceInfo" returnQName="retNS:getWebServiceInfoReturn" returnType="rtns:string" soapAction="">
+      </operation>
+      <operation xmlns:operNS="http://restapi.chaser.com.cn" name="create" qname="operNS:create" soapAction="">
+        <parameter xmlns:pns="http://restapi.chaser.com.cn" xmlns:tns="http://restapi.chaser.com.cn" qname="pns:input" type="tns:vauleStruct"/>
+      </operation>
+      <parameter name="allowedMethods" value="getWebServiceInfo create respondMessage"/>
+
+      <typeMapping xmlns:ns="http://restapi.chaser.com.cn" qname="ns:&gt;create" type="java:cn.com.chaser.restapi.Create" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://restapi.chaser.com.cn" qname="ns:&gt;getWebServiceInfoResponse" type="java:cn.com.chaser.restapi.GetWebServiceInfoResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://restapi.chaser.com.cn" qname="ns:&gt;getWebServiceInfo" type="java:cn.com.chaser.restapi.GetWebServiceInfo" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://restapi.chaser.com.cn" qname="ns:vauleStruct" type="java:cn.com.chaser.restapi.VauleStruct" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+      <typeMapping xmlns:ns="http://restapi.chaser.com.cn" qname="ns:&gt;createResponse" type="java:cn.com.chaser.restapi.CreateResponse" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
