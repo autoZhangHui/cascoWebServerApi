@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://restapi.chaser.com.cn" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://restapi.chaser.com.cn" xmlns:intf="http://restapi.chaser.com.cn" xmlns:tns1="http://core.rs.ws.javax" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://restapi.chaser.com.cn" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://core.rs.ws.javax"/>
+   <element name="respondMessage">
+    <complexType>
+     <sequence>
+      <element name="parameter" type="xsd:string"/>
+      <element name="value" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="respondMessageResponse">
+    <complexType>
+     <sequence>
+      <element name="respondMessageReturn" type="xsd:anyType"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getWebServiceInfo">
+    <complexType/>
+   </element>
+   <element name="getWebServiceInfoResponse">
+    <complexType>
+     <sequence>
+      <element name="getWebServiceInfoReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="create">
+    <complexType>
+     <sequence>
+      <element name="input" type="impl:vauleStruct"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="vauleStruct">
+    <sequence>
+     <element name="param1" nillable="true" type="xsd:string"/>
+     <element name="param2" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <element name="createResponse">
+    <complexType/>
+   </element>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="createResponse">
+
+      <wsdl:part element="impl:createResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="respondMessageResponse">
+
+      <wsdl:part element="impl:respondMessageResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="createRequest">
+
+      <wsdl:part element="impl:create" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="respondMessageRequest">
+
+      <wsdl:part element="impl:respondMessage" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getWebServiceInfoRequest">
+
+      <wsdl:part element="impl:getWebServiceInfo" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="getWebServiceInfoResponse">
+
+      <wsdl:part element="impl:getWebServiceInfoResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="RestService">
+
+      <wsdl:operation name="respondMessage">
+
+         <wsdl:input message="impl:respondMessageRequest" name="respondMessageRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:respondMessageResponse" name="respondMessageResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getWebServiceInfo">
+
+         <wsdl:input message="impl:getWebServiceInfoRequest" name="getWebServiceInfoRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:getWebServiceInfoResponse" name="getWebServiceInfoResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="create">
+
+         <wsdl:input message="impl:createRequest" name="createRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:createResponse" name="createResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="RestServiceSoapBinding" type="impl:RestService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="respondMessage">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="respondMessageRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="respondMessageResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="getWebServiceInfo">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getWebServiceInfoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getWebServiceInfoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="create">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="createRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="createResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="RestServiceService">
+
+      <wsdl:port binding="impl:RestServiceSoapBinding" name="RestService">
+
+         <wsdlsoap:address location="http://localhost:8080/cascowebserver/services/RestService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>
