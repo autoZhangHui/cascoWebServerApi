@@ -120,9 +120,87 @@ public class RestService1 extends HttpServlet{
 					}
 		    		 data="{\"result\""+":"+data+"}";
 		    	}
-		    	
-		    	//out.write(data);
-		    	jsondata=JSONObject.fromObject(data);
+		    	if(method.equals("gethabseinfo")){
+		    		String tableName=(String) requestJson.get("tableName");
+		    		try {
+						data=HbaseSet.getAllHistory("tableName");
+						//CSVMapReduce.runLogs(keywords);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+		    		 data="{\"result\""+":"+data+"}";
+		    	}
+		    	if(method.equals("disabletable")){
+		    		String tableName=(String) requestJson.get("tableName");
+		    		try {
+						HbaseSet.disableTable(tableName);
+						data="{\"result\""+":"+"success"+"}";
+						//CSVMapReduce.runLogs(keywords);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						data="{\"result\""+":"+e+"}";
+					}
+		    	}
+		    	if(method.equals("enabletable")){
+		    		String tableName=(String) requestJson.get("tableName");
+		    		try {
+						HbaseSet.enableTable(tableName);
+						data="{\"result\""+":"+"success"+"}";
+						//CSVMapReduce.runLogs(keywords);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						data="{\"result\""+":"+e+"}";
+					}
+		    	}
+		    	if(method.equals("droptable")){
+		    		String tableName=(String) requestJson.get("tableName");
+		    		try {
+						HbaseSet.deleteTable(tableName);
+						data="{\"result\""+":"+"success"+"}";
+						//CSVMapReduce.runLogs(keywords);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						data="{\"result\""+":"+e+"}";
+					}
+		    		 //data="{\"result\""+":"+data+"}";
+		    	}
+		    	if(method.equals("addtable")){
+		    		String tableName=(String) requestJson.get("tableName");
+		    		String cf1=(String) requestJson.get("cf1");
+		    		String cf2=(String) requestJson.get("cf2");
+		    		String cf3=(String) requestJson.get("cf3");
+		    		int validCf=0;
+		    		if(!cf1.equals(""))  validCf++;
+		    		if(!cf2.equals(""))  validCf++;
+		    		if(!cf3.equals(""))  validCf++;
+		    		String[] cfs=new String[validCf];
+		    		validCf=0;
+		    		if(!cf1.equals(""))  {cfs[validCf]=cf1;validCf++;}
+		    		if(!cf2.equals(""))  {cfs[validCf]=cf2;validCf++;}
+		    		if(!cf3.equals(""))  {cfs[validCf]=cf3;}
+		    		if(validCf>0){
+		    			try {
+							HbaseSet.creatTable(tableName, cfs);
+							//CSVMapReduce.runLogs(keywords);
+							data="{\"result\""+":"+"创建数据表成功"+"}";
+						} catch (Exception e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+		    		}
+		    		
+		    		 
+		    	}
+		    	try {
+			    	jsondata=JSONObject.fromObject(data);
+				} catch (Exception ejson) {
+					jsondata=JSONObject.fromObject("{\"result\""+":处理错误"+ejson+"}");
+				}
+		    	//jsondata=JSONObject.fromObject(data);
 		        response.setContentType("application/json;charset=UTF-8");
 		        response.setHeader("Cache-Control", "no-store");
 		        response.setHeader("Pragrma", "no-cache");
